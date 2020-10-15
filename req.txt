@@ -1,0 +1,9 @@
+Django
+django-ckeditor
+Pillow
+python manage.py makemigrations
+python manage.py migrate
+
+
+
+
