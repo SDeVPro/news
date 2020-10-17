@@ -2,13 +2,13 @@ from django.db import models
 
 # Create your models here.
 from django.utils.safestring import mark_safe
-
+from ckeditor_uploader.fields import RichTextUploadingFormField
 
 class Category(models.Model):
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField()#category/1231251/nomi
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -22,7 +22,7 @@ class Article(models.Model):
     description = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/', blank=True)
-    detail = models.TextField()
+    detail = RichTextUploadingFormField()
     slug = models.SlugField()
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
