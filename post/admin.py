@@ -13,8 +13,9 @@ class ArticleImageInline(admin.TabularInline):
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'image']
     list_filter = ['title']
-    readonly_fields = ('image',)
+    readonly_fields = ('image_tag',)
     inlines = [ArticleImageInline]
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Images)
