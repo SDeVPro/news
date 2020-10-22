@@ -19,3 +19,17 @@ def index(request):
     }
 
     return render(request, 'index.html',context)
+
+
+def about(request):
+    setting = Setting.objects.all()
+    category = Category.objects.all()
+    context = {
+        'setting':setting,
+        'category':category,
+    }
+    return render(request, 'about.html',context)
+
+
+def contact(request):
+    return None
