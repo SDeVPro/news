@@ -1,6 +1,10 @@
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
 from post.models import Category, Article
-from .models import Setting
+from .models import Setting, ContactForm, ContactMessage
+
+
 # Create your views here.
 def index(request):
     setting = Setting.objects.all()
@@ -32,4 +36,23 @@ def about(request):
 
 
 def contact(request):
-    return None
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            data = ContactMessage()
+            data.name =form.cleaned_data['name']
+            data.email = form.cleaned_data['email']
+            data.subject = form.cleaned_data['subject']
+            data.message = form.cleaned_data['message']
+            data.ip = request.META.get('REMOTE_ADDR')
+            data.save()
+            messages.success(request, "Sizning xabaringiz yuborildi!")
+            return HttpResponseRedirect('/contact')
+
+    setting = Setting.objects.all()
+    form = ContactForm
+    category = Category.objects.all()
+    context = {
+            'setting':setting, 'form':form, 'category':category,
+        }
+    return render(request, 'contact.html',context)

@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'homebase.html' %}
+{% load static %}
+{% block title %}Contact us-{{ setting.title }}{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
 
-</body>
-</html>
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+{% block body %}
+    <div id="breadcrumb">
+        <div class="container">
+            <li><a href="/">Home</a></li>
+            <li class="active">Contact Us</li>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="row">
+               <div class="col-md-4">
+                   <div class="billing-detail">
+                       <div class="section-title">
+                           <h3 class="section-title">Contact Form</h3>
+                           {% if messages %}
+                               {% for message in messages %}
+                                   <div class="alert alert-{{ message.tags }}" role="alert">
+                                        {{ message }}
+                                   </div>
+                               {% endfor %}
+                           {% endif %}
+                       </div>
+                       <form id="checkout-form" class="clearfix" method="post">
+                           {% csrf_token %}
+                           {{ form.as_p }}
+                           <input type="submit" value="Send Form">
+                       </form>
+                   </div>
+               </div>
+            <div class="col-md-8">
+                <div class="shiping-methods">
+                    <div class="section-title">
+                        <h4 class="title">Contact Information</h4>
+                    </div>
+                    <div class="section-title">
+                        {% for rs in setting %}
+                            {{ rs.contact|safe }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %} {% include 'footer.html' %}{% endblock %}
