@@ -2,27 +2,22 @@
 <div id="navigation">
     <div class="container">
         <div id="responsive-nav">
+            {% if page %}
             <div class="category-nav">
+                {% else %}
+                <div class="category-nav show-on-click">
+                    {% endif %}
                 <span class="category-header">Kategoriyalar <i class="fa fa-list"></i>    </span>
-                <ul class="category-list">
+
+            <ul class="category-list">{% for rs in category %}
+
                     <li class="dropdown side-dropdown">
-                        <a href="" class="dropdown-toggle"></a>
-                        <div class="custom-menu">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Toifa osti</h3>
-                                        </li>
-                                        <hr class="hidden-md hidden-lg">
-                                    </ul>
-                                </div>
-                            </div>
+                        <a href="/category/{{ rs.id }}/{{ rs.slug }}" >{{ rs.title }} <i class="fa fa-angle-right"></i></a>
 
-                        </div>
                     </li>
-
+{% endfor %}
                 </ul>
+
             </div>
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
