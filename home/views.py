@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
-from post.models import Category, Article, Images
+from post.models import Category, Article, Images, Comment
 from .models import Setting, ContactForm, ContactMessage
 
 
@@ -72,10 +72,12 @@ def category_article(request,id,slug):
 def post_detail(request, id, slug):
     category = Category.objects.all()
     post = Article.objects.get(pk=id)
+    comments = Comment.objects.filter(article_id=id)
     images = Images.objects.filter(article_id=id)
     context = {
         'category':category,
         'post':post,
         'images':images,
+        'comments':comments,
     }
     return render(request, 'article_detail.html', context)

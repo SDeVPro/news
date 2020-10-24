@@ -135,7 +135,7 @@
                                                 {% endfor %}
                                             {% endif %}
 
-                                            <form class="review-form" action="/post/addcomment/{{ post.id }}/" method="post">
+                                            <form class="review-form" action="/post/addcomment/{{ post.id }}" method="post">
                                                 {% csrf_token %}
                                                 <div class="form-group">
                                                     <input name="subject" class="input" type="text" placeholder="Your Subject" />
