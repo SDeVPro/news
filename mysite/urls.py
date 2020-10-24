@@ -26,6 +26,8 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('category/<int:id>/<slug:slug>/', views.category_article, name='category_article'),
+    path('post/<int:id>/<slug:slug>/', views.post_detail, name='post_detail'),
 ]
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

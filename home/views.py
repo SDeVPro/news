@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
-from post.models import Category, Article
+from post.models import Category, Article, Images
 from .models import Setting, ContactForm, ContactMessage
 
 
@@ -56,3 +56,26 @@ def contact(request):
             'setting':setting, 'form':form, 'category':category,
         }
     return render(request, 'contact.html',context)
+
+
+def category_article(request,id,slug):
+    category = Category.objects.all()
+    catdata = Category.objects.get(pk=id)
+    post = Article.objects.filter(category_id=id)
+    context = {
+        'category':category,
+        'catdata':catdata,
+        'post':post,
+    }
+    return render(request,'catefory_article.html',context)
+
+def post_detail(request, id, slug):
+    category = Category.objects.all()
+    post = Article.objects.get(pk=id)
+    images = Images.objects.filter(article_id=id)
+    context = {
+        'category':category,
+        'post':post,
+        'images':images,
+    }
+    return render(request, 'article_detail.html', context)
