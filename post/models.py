@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 from django.forms import ModelForm
 from django.utils.safestring import mark_safe
-from ckeditor_uploader.fields import RichTextUploadingFormField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Category(models.Model):
     title = models.CharField(max_length=150)
@@ -24,7 +24,7 @@ class Article(models.Model):
     description = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/', blank=True)
-    detail = RichTextUploadingFormField()
+    detail = RichTextUploadingField()
     slug = models.SlugField()
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)

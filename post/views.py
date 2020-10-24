@@ -26,4 +26,5 @@ def addcomment(request, id):
             data.save()
             messages.success(request, "Sizning kommentariyangiz qo'shildi!")
             return HttpResponseRedirect(url)
+
     return HttpResponseRedirect(url)
