@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
-
 # Create your views here.
 from post.models import CommentForm, Comment
 
