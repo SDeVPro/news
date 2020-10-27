@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
@@ -103,4 +105,19 @@ def search(request):
             }
             return render(request, 'search.html',context)
     return HttpResponseRedirect('/')
+
+def search_auto(request):
+    if request.is_ajax():
+        q = request.GET.get('term','')
+        articles = Article.objects.filter(title__icontains=q)
+        results = []
+        for rs in articles:
+            articles_json = {}
+            articles_json = rs.title
+            results.append(articles_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return  HttpResponse(data,mimetype)
 

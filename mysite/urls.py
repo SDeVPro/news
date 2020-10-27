@@ -23,7 +23,7 @@ urlpatterns = [
     path('post/', include('post.urls')),
     path('', include('home.urls')),
     path('search/',views.search,name='search'),
-    path('search_auto/',views.search,name='search'),
+    path('search_auto/',views.search_auto,name='search_auto'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('admin/', admin.site.urls),
