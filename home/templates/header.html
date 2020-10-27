@@ -31,18 +31,49 @@
                         <img src="{% static '0.png' %}" alt="">
                     </a>
                 </div>
-                <div class="header-search">
-                    <form>
-                        <input class="input search-input" type="text" placeholder="Qidirish">
-                        <select class="input search-categories" >
-                            <option value="0">Hamma kategorylar ichidan</option>
-                            <option value="1">Category 1</option>
-                        </select>
-                        <button class="search-btn"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-            </div>
+                <script>
 
+                       $(function()
+                         {$("#query").autocomplete({
+                          source: "/search_auto/",
+                          select: function (event, ui) { //item selected
+                          AutoCompleteSelectHandler(event, ui)
+                           },
+                          minLength: 2,
+                             });
+                         });
+
+                          function AutoCompleteSelectHandler(event, ui)
+                         {
+                            var selectedObj = ui.item;
+                          }
+
+                    </script>
+					<!-- Search -->
+					<div class="header-search">
+						<form action="/search/" method="post">
+                            {% csrf_token %}
+							<input id="query" name="query" class="input search-input" type="text" placeholder="Enter your keyword">
+							<select name="catid" class="input search-categories">
+								<option value="0">Maqola turlari</option>
+
+                                {% for rs in category %}
+                                    {% if rs.is_leaf_node %}
+                                         <option value="{{ rs.id }}">{{ rs.title }}</option>
+                                    {% endif %}
+                                    {% if not rs.is_leaf_node %}
+                                        <optgroup label="{{ rs.title }}">
+
+                                        </optgroup>
+                                    {% endif %}
+                                {% endfor %}
+
+							</select>
+							<button class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+					<!-- /Search -->
+				</div>
             <div class="pull-right">
                 <ul class="header-btns">
                     <li class="header-account dropdown default-dropdown">
