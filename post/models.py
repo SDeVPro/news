@@ -37,12 +37,13 @@ class Article(models.Model):
         return mark_safe('<img src="{}" height="50"/>').format(self.image.url)
     image_tag.short_description = 'Image'
 
-    def avaregerewiew(self):
+    def avaregereview(self):
         reviews = Comment.objects.filter(article=self).aggregate(avarage=Avg('rate'))
         avg = 0
         if reviews["avarage"] is not None:
             avg = float(reviews["avarage"])
         return avg
+
     def countreview(self):
         reviews = Comment.objects.filter(article=self).aggregate(count=Count('id'))
         cnt = 0

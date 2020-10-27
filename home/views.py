@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
 from post.models import Category, Article, Images, Comment
 from .models import Setting, ContactForm, ContactMessage
-
+from django import forms
 
 # Create your views here.
 def index(request):
@@ -81,3 +81,26 @@ def post_detail(request, id, slug):
         'comments':comments,
     }
     return render(request, 'article_detail.html', context)
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100)
+    catid = forms.IntegerField()
+def search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            catid = form.cleaned_data['catid']
+            if catid == 0:
+                articles = Article.objects.filter(title__icontains=query)
+            else:
+                articles = Article.objects.filter(title__icontains=query, category_id=catid)
+
+            category = Category.objects.all()
+            context = {
+                'articles':articles,
+                'category':category,
+                'query':query,
+            }
+            return render(request, 'search.html',context)
+    return HttpResponseRedirect('/')
+
