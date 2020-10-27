@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+from django.db.models import Avg, Count
 from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -36,6 +37,19 @@ class Article(models.Model):
         return mark_safe('<img src="{}" height="50"/>').format(self.image.url)
     image_tag.short_description = 'Image'
 
+    def avaregerewiew(self):
+        reviews = Comment.objects.filter(article=self).aggregate(avarage=Avg('rate'))
+        avg = 0
+        if reviews["avarage"] is not None:
+            avg = float(reviews["avarage"])
+        return avg
+    def countreview(self):
+        reviews = Comment.objects.filter(article=self).aggregate(count=Count('id'))
+        cnt = 0
+        if reviews["count"] is not None:
+            cnt = int(reviews["count"])
+        return cnt
+
 class Images(models.Model):
     article = models.ForeignKey(Article,on_delete=models.CASCADE)
     title = models.CharField(max_length=50, blank=True)
@@ -43,6 +57,7 @@ class Images(models.Model):
 
     def __str__(self):
         return self.title
+
 class Comment(models.Model):
     STATUS = (
         ('True','Mavjud'),

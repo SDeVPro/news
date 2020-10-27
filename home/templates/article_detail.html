@@ -57,16 +57,16 @@
                             <h2 class="product-name">Title: {{ post.title }}</h2>
                             <h3 class="product-price">Author: {{ post.author}}</h3>
                             <div>
-{#                                <div class="product-rating">#}
-{#                                    <i class="fa fa-star{% if product.avaregereview < 1%}-o empty{% endif%}"></i>#}
-{#                                    <i class="fa fa-star{% if product.avaregereview < 2%}-o empty{% endif%}"></i>#}
-{#                                    <i class="fa fa-star{% if product.avaregereview < 3%}-o empty{% endif%}"></i>#}
-{#                                    <i class="fa fa-star{% if product.avaregereview < 4%}-o empty{% endif%}"></i>#}
-{#                                    <i class="fa fa-star{% if product.avaregereview < 5%}-o empty{% endif%}"></i>#}
-{#                                    {{ product.avaregereview |stringformat:".2f"}}#}
-{#                                </div>#}
-{#                                <a href="#tab1"> {{ product.countreview}}  Review(s) / Add Review</a>#}
-{#                            </div>#}
+                                <div class="product-rating">
+                                    <i class="fa fa-star{% if post.avaregereview < 1%}-o empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if post.avaregereview < 2%}-o empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if post.avaregereview < 3%}-o empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if post.avaregereview < 4%}-o empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if post.avaregereview < 5%}-o empty{% endif%}"></i>
+                                    {{ post.avaregereview |stringformat:".2f"}}
+                                </div>
+                                <a href="#tab1"> {{ post.countreview}}  Review(s) / Add Review</a>
+                            </div>
 
 
                             <p>{{ post.description }}</p>
