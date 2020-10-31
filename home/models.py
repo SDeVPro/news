@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 from django.forms import ModelForm, TextInput, EmailInput, Textarea
+from post.models import Article
 
 
 class Setting(models.Model):
@@ -52,3 +54,13 @@ class ContactForm(ModelForm):
             'message': Textarea(attrs={'class': 'input', 'placeholder': 'Your message', 'rows':'5'}),
         }
 
+class Favorite(models.Model):
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    article = models.ForeignKey(Article,on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.article.title
+
+class FavoriteForm(ModelForm):
+    model = Favorite
+    fields = ['title','rate']

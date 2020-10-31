@@ -1,10 +1,11 @@
 import json
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
 from post.models import Category, Article, Images, Comment
-from .models import Setting, ContactForm, ContactMessage
+from .models import Setting, ContactForm, ContactMessage, Favorite, FavoriteForm
 from django import forms
 
 # Create your views here.
@@ -121,3 +122,53 @@ def search_auto(request):
     mimetype = 'application/json'
     return  HttpResponse(data,mimetype)
 
+
+def addtofavorite(request,id):
+    url = request.META.get('HTTP_REFERER')
+    current_user = request.user
+    check = Favorite.objects.filter(article_id=id)
+    if check:
+        control = 1
+    else:
+        control = 0
+    if request.method == 'POST':
+        form = FavoriteForm(request.POST)
+        if form.is_valid():
+            if control == 1:
+                data = Favorite.objects.get(article_id=id)
+                data.save()
+            else:
+                data = Favorite()
+                data.user_id = current_user.id
+                data.article_id = id
+                data.save()
+        messages.success(request,"Article added to Favorite")
+        return HttpResponseRedirect(url)
+    else:
+        if control == 1:
+            data = Favorite.objects.get(article_id=id)
+            data.save()
+        else:
+            data = Favorite()
+            data.user_id = current_user.id
+            data.article_id = id
+            data.save()
+        messages.success(request,"Article added to Favorite")
+        return HttpResponseRedirect(url)
+
+@login_required(login_url='login')
+def deletefav(request,id):
+    Favorite.objects.filter(id=id).delete()
+    messages.success(request,"Your item deleted!")
+    return HttpResponseRedirect('/favorite')
+
+
+def favorite(request):
+    category = Category.objects.all()
+    current_user = request.user
+    favorite = Favorite.objects.filter(user_id=current_user.id)
+    context = {
+        'category':category,
+        'favorite':favorite,
+    }
+    return render(request,'favorite.html',context)
