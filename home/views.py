@@ -142,7 +142,7 @@ def addtofavorite(request,id):
                 data.user_id = current_user.id
                 data.article_id = id
                 data.save()
-        messages.success(request,"Article added to Favorite")
+        messages.success(request,"Article added to Favourite")
         return HttpResponseRedirect(url)
     else:
         if control == 1:
@@ -153,7 +153,7 @@ def addtofavorite(request,id):
             data.user_id = current_user.id
             data.article_id = id
             data.save()
-        messages.success(request,"Article added to Favorite")
+        messages.success(request,"Article added to Favourite")
         return HttpResponseRedirect(url)
 
 @login_required(login_url='login')

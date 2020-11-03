@@ -23,14 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '81d-40goa!fu6%y!&z4v^db7y_tuftie6@_k8h=dv9im04m#bn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+#
+# ALLOWED_HOSTS = ['sdevnews.herokuapp.com','127.0.0.1']
+DEBUG = True
 
-ALLOWED_HOSTS = ['sdevnews.herokuapp.com','127.0.0.1']
-
+ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
+    'user.apps.UserConfig',
     'post.apps.PostConfig',
     'home.apps.HomeConfig',
     'django.contrib.admin',
@@ -52,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'mysite.urls'

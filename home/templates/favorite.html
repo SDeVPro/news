@@ -31,7 +31,7 @@
                             <tbody>
                             {% for rs in favorite %}
                                 <tr>
-                                    <td class="thumb"><img src="{{ rs.article.image.url }}" alt=""></td>
+                                    <td class="thumb"><img src="{{ rs.article.image.url }}" alt="" style="height: 100px"></td>
                                     <td class="detail">
                                         <a href="/post/{{ rs.id }}/{{ rs.slug }}">{{ rs.article.title }}</a>
                                     </td>
