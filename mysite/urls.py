@@ -18,8 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from home import views
+from user import views as UserViews
 
 urlpatterns = [
+    path('login/',UserViews.login_form,name='login_form'),
+    path('logout/', UserViews.logout_func, name='logout_func'),
+    path('signup/', UserViews.signup_form, name='signup_form'),
+
     path('post/', include('post.urls')),
     path('', include('home.urls')),
     path('search/',views.search,name='search'),
